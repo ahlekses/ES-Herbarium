@@ -1,36 +1,57 @@
 import streamlit as st
-import pandas as pd  # pip install pandas
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
+# URL of the CSV file
+csv_url = "https://raw.githubusercontent.com/ahlekses/ES-Herbarium/refs/heads/main/Species_clustering_classification.csv"
 
-# CONFIGS
+# Load the data
+@st.cache
+def load_data(url):
+    data = pd.read_csv(url)
+    return data
 
-DATA_URL = "https://raw.githubusercontent.com/ahlekses/ES-Herbarium/refs/heads/main/Species_clustering_classification.csv"
+data = load_data(csv_url)
 
+# Title
+st.title("Herbarium Species Clustering and Classification")
 
-st.title(f"Sales Dashboard", anchor=False)
+# Display dataset
+st.header("Dataset")
+st.dataframe(data)
 
+# Layout: Settings above the graph
+st.header("Visualization Settings and Graph")
 
-@st.cache_data
-def get_and_prepare_data(data):
-    df = pd.read_csv(data).assign(
-        date_of_sale=lambda df:(df["Area"]),
-        month=lambda df: df["species"],
-        year=lambda df: df["species_number"],
-    )
-    return df
+# Settings for visualization
+columns = data.columns.tolist()
 
+col1, col2, col3 = st.columns(3)
+with col1:
+    x_axis = st.selectbox("X-Axis", columns)
+with col2:
+    y_axis = st.selectbox("Y-Axis", columns)
+with col3:
+    chart_type = st.selectbox("Chart Type", ["Scatter Plot", "Bar Chart"])
 
-df = get_and_prepare_data(data=DATA_URL)
-
-# Calculate total revenue for each city and year, and then calculate the percentage change
-city_revenues = (
-    df.groupby(["species", "dbh"])["crown_width"]
-    .sum()
-    .unstack()
-    .assign(change=lambda x: x.pct_change(axis=1)[YEAR] * 100)
+# Filter for the number of data points to display
+num_points = st.number_input(
+    "Number of data points to display (limit X-axis)", 
+    min_value=1, 
+    max_value=len(data), 
+    value=min(len(data), 100), 
+    step=1
 )
 
+filtered_data = data.head(int(num_points))
 
-
-# Display the data
-st.bar_chart(filtered_data.set_index(filtered_data.columns[0])["sales_amount"])
+# Visualization
+if chart_type == "Scatter Plot":
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(data=filtered_data, x=x_axis, y=y_axis)
+    st.pyplot(plt)
+elif chart_type == "Bar Chart":
+    plt.figure(figsize=(10, 6))
+    sns.barplot(data=filtered_data, x=x_axis, y=y_axis, ci=None)
+    st.pyplot(plt)

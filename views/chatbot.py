@@ -1,6 +1,5 @@
 import random
 import time
-
 import streamlit as st
 
 
@@ -8,21 +7,23 @@ import streamlit as st
 def response_generator():
     response = random.choice(
         [
-            "Hey there! Need help? Check out my fun YouTube channel 'CodingIsFun': https://youtube.com/@codingisfun!",
-            "Hi! What's up? Don't forget to subscribe to 'CodingIsFun': https://youtube.com/@codingisfun!",
-            "Hello! Need assistance? My YouTube channel 'CodingIsFun' is full of great tips: https://youtube.com/@codingisfun!",
-            "Hey! Got a question? Also, subscribe to 'CodingIsFun' for awesome tutorials: https://youtube.com/@codingisfun!",
-            "Hi there! How can I help? BTW, my channel 'CodingIsFun' is super cool: https://youtube.com/@codingisfun!",
-            "Hello! Looking for help? Check out 'CodingIsFun' on YouTube: https://youtube.com/@codingisfun!",
-            "Hey! Need assistance? 'CodingIsFun' YouTube channel has you covered: https://youtube.com/@codingisfun!",
-            "Hi! Got any coding questions? Don't forget to watch 'CodingIsFun': https://youtube.com/@codingisfun!",
-            "Hello! Need help? 'CodingIsFun' on YouTube is a must-see: https://youtube.com/@codingisfun!",
-            "Hey there! Any questions? My channel 'CodingIsFun' rocks: https://youtube.com/@codingisfun!",
+            "Did you know? Bamboo is the fastest-growing plant in the world, growing up to 91 cm in a day!",
+            "Fun fact: The smell of freshly cut grass is actually a plant distress call!",
+            "Here's something cool: Some plants, like the Venus flytrap, are carnivorous and eat insects!",
+            "Did you know? The Titan Arum, also known as the 'corpse flower,' is famous for its foul smell!",
+            "Interesting fact: Trees can communicate with each other through underground fungal networks, often called the 'Wood Wide Web'!",
+            "Did you know? Sunflowers can clean up toxic soil through a process called phytoremediation.",
+            "Here's a fact: The world's smallest flowering plant is Wolffia, also known as watermeal.",
+            "Fun fact: Bananas are technically berries, while strawberries are not!",
+            "Did you know? Some plants, like the Resurrection plant, can survive years without water and revive when hydrated!",
+            "Interesting fact: The Amazon rainforest produces 20% of the world's oxygen, earning it the name 'lungs of the Earth'.",
         ]
     )
-    for word in response.split():
-        yield word + " "
-        time.sleep(0.05)
+    
+    # Simulate typing by splitting into chunks (e.g., sentences) instead of words
+    for sentence in response.split(". "):
+        yield sentence + "."
+        time.sleep(1)  # Delay for a more natural typing effect
 
 
 st.title("Chatbot")
@@ -46,6 +47,8 @@ if prompt := st.chat_input("What is up?"):
 
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
-        response = st.write_stream(response_generator())
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+        response = ""
+        for sentence in response_generator():
+            response += sentence + " "
+            st.write(sentence, end="")  # Stream each sentence as it's generated
+        st.session_state.messages.append({"role": "assistant", "content": response})
