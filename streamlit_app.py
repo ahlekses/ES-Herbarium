@@ -4,13 +4,13 @@ import streamlit as st
 # --- PAGE SETUP ---
 about_page = st.Page(
     "views/about_me.py",
-    title="About Me",
+    title="About the Project",
     icon=":material/account_circle:",
     default=True,
 )
 project_1_page = st.Page(
     "views/sales_dashboard.py",
-    title="Sales Dashboard",
+    title="Leaf knowledge",
     icon=":material/bar_chart:",
 )
 project_2_page = st.Page(
@@ -34,7 +34,7 @@ pg = st.navigation(
 
 # --- SHARED ON ALL PAGES ---
 st.logo("assets/codingisfun_logo.png")
-st.sidebar.markdown("Made with ❤️ by [Sven](https://youtube.com/@codingisfun)")
+st.sidebar.markdown("2024 ES Capstone Project")
 
 
 # --- RUN NAVIGATION ---
