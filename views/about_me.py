@@ -14,34 +14,34 @@ with col1:
     st.image("./assets/profile_image.png", width=230)
 
 with col2:
-    st.title("Sven Bosau", anchor=False)
+    st.title("Herbarium", anchor=False)
     st.write(
-        "Senior Data Analyst, assisting enterprises by supporting data-driven decision-making."
+        "Welcome to our Herbarium Knowledge Base—your digital gateway to the fascinating world of plant science! This Python-powered platform is designed to catalog, organize, and share detailed information about plant specimens."
     )
-    if st.button("✉️ Contact Me"):
+    if st.button("✉️ Contribute"):
         show_contact_form()
 
 
 # --- EXPERIENCE & QUALIFICATIONS ---
 st.write("\n")
-st.subheader("Experience & Qualifications", anchor=False)
+st.subheader("Features:", anchor=False)
 st.write(
     """
-    - 7 Years experience extracting actionable insights from data
-    - Strong hands-on experience and knowledge in Python and Excel
-    - Good understanding of statistical principles and their respective applications
-    - Excellent team-player and displaying a strong sense of initiative on tasks
+🌿 Comprehensive Plant Records: Access detailed profiles for plant specimens, including taxonomy, physical descriptions, habitats, and ecological significance.
+
+📚 Learn & Share: Discover fascinating details about native, medicinal, or endangered plants, and contribute to the knowledge base by adding your findings.
+
+💻 Python-Powered Precision: Built using Python, this platform leverages robust data management and machine learning capabilities for seamless and accurate information delivery.
     """
 )
 
 # --- SKILLS ---
 st.write("\n")
-st.subheader("Hard Skills", anchor=False)
+st.subheader("Why use our Knowledge Base?", anchor=False)
 st.write(
     """
-    - Programming: Python (Scikit-learn, Pandas), SQL, VBA
-    - Data Visualization: PowerBi, MS Excel, Plotly
-    - Modeling: Logistic regression, linear regression, decision trees
-    - Databases: Postgres, MongoDB, MySQL
+-Easy-to-navigate design for all user levels.
+-Continuously updated with the latest botanical research.
+-Open-source and community-driven for transparency and collaboration.
     """
 )
